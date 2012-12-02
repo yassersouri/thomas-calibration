@@ -11,7 +11,7 @@ In a first attempt I want to implement the "Initialisation" part of the paper. W
 Initialisation
 --------------
 
-In this paper, rather than attempting to establish the correspondence between world world lines and peaks in Hough space, authors use the Hough transform as a means to _quickly_ establish a measure of how well the image matches the set of lines that would be expected to be visible from a given pose.
+In this paper, rather than attempting to establish the **correspondence** between world world lines and peaks in Hough space, authors use the Hough transform as a means to _quickly_ establish a measure of how well the image **matches** the set of lines that would be expected to be visible from a given pose. A **match value** for a set of lines can be obtained by adding together the set of bins in Hough space that correspond to the lines we are looking for. So testing for a set of _N_ lines is _O(N)_ computationaly.
 
 
 Reference
