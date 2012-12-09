@@ -31,11 +31,11 @@ A variant of Hough transform is used that maintains some of the spatial informat
 
 Thus to determine the sub-bin that a given pixel contributes to, it is only necessary to check its _x_ or _y_ coordinate, depending on the angle that the bin in the transform corresponds to.
 
-The resulting Hough space has 3 dimensions: distance and angle (as in a conventional Hough transform) and _distance from picture edge_, measured from either bottom or left edge of the picture frame depending on the slope of the line. This third axis (_distance from picture edge_) has length S.
+The resulting Hough space has 3 dimensions: distance and angle (as in a conventional Hough transform) and _distance from picture edge_, measured from either bottom or left edge of the picture frame depending on the slope of the line. This third axis (distance from picture edge) has length S.
 
 The catch is that both vertical and horizontal are divided into S sub-regions, so upper and left sections have a _common_ sub-Hough. Also not all lines use all sub-Houghs. But since memory is not an issue for now, and this method is really quick and simple, we will stick with this. If we add together all the sub-Houghs we get a conventional Hough transform.
 
-**How to use the line detection filter?** The line detection filter assumes that we know the _orientation_ and _width_ of the lines, which we do not! With a range of assumed line widths, and using both the vertical and horizontal direction, we apply the filter to the image several times. 
+**How to use the line detection filter?** The line detection filter assumes that we know the _orientation_ and _width_ of the lines, which we do not! With a range of assumed line widths, and using both the vertical and horizontal direction, we apply the filter to the image several times. We add the outputs together, then for each pixel which is more than a **threshold**, we add a value to the appropriate sub-bins **proportional** to the summed output of the line detection filter.
 
 
 Tests
@@ -51,11 +51,9 @@ Questions
 =========
 **Q:** How does sub-dividing an image into S 1D section maintains a common set of bins? I can't figure this out right now!
 
-**A:** ?
+**Q:** How do we know if a line in the image is closer to horizontal or vertical?  - **A:** When calculating the Hough transform, each pixel in the frame space, corresponds to a set of bins in the Hough space. According to the angle that the bin corresponds to we can decide whether the line is more horizontal or more vertical, then by checking its _x_ or _y_ coordinates we decide which sub-Hough space we should use.
 
-**Q:** How do we know if a line in the image is closer to horizontal or vertical? 
-
-**A:** When calculating the Hough transform, each pixel in the frame space, corresponds to a set of bins in the Hough space. According to the angle that the bin corresponds to we can decide whether the line is more horizontal or more vertical, then by checking its _x_ or _y_ coordinates we decide which sub-Hough space we should use.
+**Q:** I have no idea why applying the line detection filter several times and then adding their outputs to gather makes sense! Why first design a powerful line detection filter with orientation and line width parameters, and then add to gether output of the filter for different values of its parameters blindly?
 
 
 Tasks
