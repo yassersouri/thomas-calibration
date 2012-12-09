@@ -17,13 +17,27 @@ They use this _matching_ in an **exhaustive** search process to establish the ma
 
 For each _pre-determined camera position_, the algorithm searches the full range of plausible values of pan, tilt, and field-of-view, calculating the match value.
 
-In this paper (as the only one I've seen) the **curved lines** are represented as a series of line segments. This needs to be tested. Authors used one segment for every 20 degree. So the central circle in the soccer field is represented by 18 line segments. This eliminated the need to handle cureves and lines separately.
+In this paper (as the only one I've seen) the **curved lines** are represented as a series of line segments. This needs to be tested. Authors used one segment for every 20 degree. So the central circle in the soccer field is represented by 18 line segments. This eliminated the need to handle curves and lines separately, and thus simplifies the implementation.
+
+### The variant of Hough transform
+
+A variant of Hough transform is used that maintains some of the spatial information. Because the peak in the Hough transform from a short line segment (or a curve line segment) may be no higher than a peak caused by samples from several other line segments and from the limbs of a player, that coincidentally happen to be co-linear. Thus short line segments may be incorrectly inferred. The catch is that information that caused the genuine peak came from samples in a specific localized area, whilst the other came from a spatially diverse area.
+
+**How to retain spatial information in Hough transform?** Simply divide the image into S 1D segments. This maintains a common set of bins for the whole image, with each bin being sub-divided into S sections (?). For simplicity we divide the line by reference to either the horizontal portion of the image in which it lies (for lines that are closer to horizontal than vertical (?)), or the vertical portion (for lines that are closer to vertical).
 
 Tests
 =====
 
 * The speed of initialization.
 * Evaluate the assumption that a curved line can be represented by line-segments.
+* Evaluate the effect of including curved lines as line segments versus completely eliminating them.
+* Evaluate the effect of the spatial Hough transform versus regular Hough transfrom.
+
+Questions
+=========
+* How does sub-dividing an image into S 1D section maitains a common set of bins? I can't figure this out right now!
+* How do we know if a line in the image is closer to horizontal or vertical? How can we 
+
 
 Reference
 =========
