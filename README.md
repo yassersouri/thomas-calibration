@@ -19,7 +19,11 @@ For each _pre-determined camera position_, the algorithm searches the full range
 
 In this paper (as the only one I've seen) the **curved lines** are represented as a series of line segments. This needs to be tested. Authors used one segment for every 20 degree. So the central circle in the soccer field is represented by 18 line segments. This eliminated the need to handle curves and lines separately, and thus simplifies the implementation.
 
-### The variant of Hough transform - Spatialised Hough Transform
+### Line detection filter
+
+...g
+
+### The variant of Hough transform - Spatialised Hough transform
 
 A variant of Hough transform is used that maintains some of the spatial information. Because the peak in the Hough transform from a short line segment (or a curve line segment) may be no higher than a peak caused by samples from several other line segments and from the limbs of a player, that coincidentally happen to be co-linear. Thus short line segments may be incorrectly inferred. The catch is that information that caused the genuine peak came from samples in a specific localized area, whilst the other came from a spatially diverse area.
 
@@ -31,6 +35,7 @@ The resulting Hough space has 3 dimensions: distance and angle (as in a conventi
 
 The catch is that both vertical and horizontal are divided into S sub-regions, so upper and left sections have a _common_ sub-Hough. Also not all lines use all sub-Houghs. But since memory is not an issue for now, and this method is really quick and simple, we will stick with this. If we add together all the sub-Houghs we get a conventional Hough transform.
 
+**How to use the line detection 
 
 
 Tests
@@ -56,10 +61,11 @@ Tasks
 =====
 * Implement line detection filter.
 * Implement the spatialised Hough transform described in the paper.
+* Implement the search algorithm for initialization.
 
 Notice
 ======
-This work is done by Yasser Souri in [Image Processing Laboratory (IPL)](http://ipl.ce.sharif.edu/), [Computer Engineering Department](http://ce.sharif.ir/) in [Sharif University of Technology](http://sharif.ir/), under supervision of [Prof. Shohreh Kasaei](http://sharif.edu/~skasaei/).
+This work is done by [Yasser Souri](http://ce.sharif.ir/~souri) in [Image Processing Laboratory (IPL)](http://ipl.ce.sharif.edu/), [Computer Engineering Department](http://ce.sharif.ir/) in [Sharif University of Technology](http://sharif.ir/), under supervision of [Prof. Shohreh Kasaei](http://sharif.edu/~skasaei/).
 
 Some parts of the "Description" section is copied from the G.Thomas[2007] paper.
 
@@ -68,3 +74,13 @@ Reference
 =========
 
 G.Thomas[2007]: Graham A. Thomas, Real-time camera tracking using sports pitch markings, J. Real-Time Image Processing, 2007.
+
+Contact
+=======
+For inquiries regarding the implementation and licensing please contact Yasser Souri:
+
+	Image Processing Laboratory (IPL)
+    Room 822, Computer Engineering Department
+    Sharif University of Technology
+    yassersouri@gmail.com
+    souri@ce.sharif.edu
