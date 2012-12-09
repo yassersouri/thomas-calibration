@@ -29,7 +29,7 @@ Thus to determine the sub-bin that a given pixel contributes to, it is only nece
 
 The resulting Hough space has 3 dimensions: distance and angle (as in a conventional Hough transform) and _distance from picture edge_, measured from either bottom or left edge of the picture frame depending on the slope of the line. This third axis (_distance from picture edge_) has length S.
 
-The catch is that both vertical and horizontal are divided into S sub-regions. Also not all lines use all sub-Houghs. But since memory is not an issue for now, and this method is really quick and simple, we will stick with this.
+The catch is that both vertical and horizontal are divided into S sub-regions, so upper and left sections have a _common_ sub-Hough. Also not all lines use all sub-Houghs. But since memory is not an issue for now, and this method is really quick and simple, we will stick with this. If we add together all the sub-Houghs we get a conventional Hough transform.
 
 
 
@@ -54,12 +54,12 @@ Questions
 
 Tasks
 =====
-* Implement line pixel detection.
+* Implement line detection filter.
 * Implement the spatialised Hough transform described in the paper.
 
 Notice
 ======
-This work is done by Yasser Souri in [Image Processing Labratory (IPL)](http://ipl.ce.sharif.edu/), [Computer Engineering Department](http://ce.sharif.ir/) in [Sharif University of Technology](http://sharif.ir/), under supervision of [Prof. Shohreh Kasaei](http://sharif.edu/~skasaei/).
+This work is done by Yasser Souri in [Image Processing Laboratory (IPL)](http://ipl.ce.sharif.edu/), [Computer Engineering Department](http://ce.sharif.ir/) in [Sharif University of Technology](http://sharif.ir/), under supervision of [Prof. Shohreh Kasaei](http://sharif.edu/~skasaei/).
 
 Some parts of the "Description" section is copied from the G.Thomas[2007] paper.
 
