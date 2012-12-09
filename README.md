@@ -21,7 +21,7 @@ In this paper (as the only one I've seen) the **curved lines** are represented a
 
 ### Line detection filter
 
-...g
+…
 
 ### The variant of Hough transform - Spatialised Hough transform
 
@@ -35,7 +35,7 @@ The resulting Hough space has 3 dimensions: distance and angle (as in a conventi
 
 The catch is that both vertical and horizontal are divided into S sub-regions, so upper and left sections have a _common_ sub-Hough. Also not all lines use all sub-Houghs. But since memory is not an issue for now, and this method is really quick and simple, we will stick with this. If we add together all the sub-Houghs we get a conventional Hough transform.
 
-**How to use the line detection 
+**How to use the line detection filter?** The line detection filter assumes that we know the _orientation_ and _width_ of the lines, which we do not! With a range of assumed line widths, and using both the vertical and horizontal direction, we apply the filter to the image several times. 
 
 
 Tests
@@ -45,6 +45,7 @@ Tests
 * Evaluate the assumption that a curved line can be represented by line-segments.
 * Evaluate the effect of including curved lines as line segments versus completely eliminating them.
 * Evaluate the effect of the spatial Hough transform versus regular Hough transform.
+* The line detection filter used is complicated and time consuming. What is the effect of changing this filter to a simpler filter.
 
 Questions
 =========
