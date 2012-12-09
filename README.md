@@ -37,6 +37,16 @@ The catch is that both vertical and horizontal are divided into S sub-regions, s
 
 **How to use the line detection filter?** The line detection filter assumes that we know the _orientation_ and _width_ of the lines, which we do not! With a range of assumed line widths, and using both the vertical and horizontal direction, we apply the filter to the image several times. We add the outputs together, then for each pixel which is more than a **threshold**, we add a value to the appropriate sub-bins **proportional** to the summed output of the line detection filter.
 
+Implementation
+--------------
+
+### Step 1
+
+Use the line detection output with serveral parameters and calculate the spatialised hough transform.
+
+### Step 2
+
+Search.
 
 Tests
 =====
