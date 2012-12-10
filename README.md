@@ -11,7 +11,7 @@ In a first attempt I want to implement the "Initialization" part of the paper. W
 Initialization
 --------------
 
-In this paper, rather than attempting to establish the **correspondence** between world world lines and peaks in Hough space, authors use the Hough transform as a means to _quickly_ establish a measure of how well the image **matches** the set of lines that would be expected to be visible from a given pose. A **match value** for a set of lines can be obtained by adding together the set of bins in Hough space that correspond to the lines we are looking for. So testing for a set of _N_ lines is _O(N)_ computationally, which is fast because _N_ is usually less than 20.
+In this paper, rather than attempting to establish the **correspondence** between world lines and peaks in Hough space, authors use the Hough transform as a means to _quickly_ establish a measure of how well the image **matches** the set of lines that would be expected to be visible from a given pose. A **match value** for a set of lines can be obtained by adding together the set of bins in Hough space that correspond to the lines we are looking for. So testing for a set of _N_ lines is _O(N)_ computationally, which is fast because _N_ is usually less than 20.
 
 They use this _matching_ in an **exhaustive** search process to establish the match value for each pose that we consider. The **speed** of this method must be evaluated.
 
@@ -42,7 +42,7 @@ Implementation
 
 ### Step 1
 
-Use the line detection output with serveral parameters and calculate the spatialised hough transform.
+Use the line detection output with several parameters and calculate the spatialised hough transform.
 
 ### Step 2
 
@@ -59,11 +59,9 @@ Tests
 
 Questions
 =========
-**Q:** How does sub-dividing an image into S 1D section maintains a common set of bins? I can't figure this out right now!
-
 **Q:** How do we know if a line in the image is closer to horizontal or vertical?  - **A:** When calculating the Hough transform, each pixel in the frame space, corresponds to a set of bins in the Hough space. According to the angle that the bin corresponds to we can decide whether the line is more horizontal or more vertical, then by checking its _x_ or _y_ coordinates we decide which sub-Hough space we should use.
 
-**Q:** I have no idea why applying the line detection filter several times and then adding their outputs to gather makes sense! Why first design a powerful line detection filter with orientation and line width parameters, and then add to gether output of the filter for different values of its parameters blindly?
+**Q:** I have no idea why applying the line detection filter several times and then adding their outputs together makes sense! Why first design a powerful line detection filter with orientation and line width parameters, and then add together output of the filter for different values of its parameters blindly?
 
 
 Tasks
