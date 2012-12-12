@@ -11,13 +11,13 @@ In a first attempt I want to implement the "Initialization" part of the paper. W
 Initialization
 --------------
 
-In this paper, rather than attempting to establish the **correspondence** between world lines and peaks in Hough space, authors use the Hough transform as a means to _quickly_ establish a measure of how well the image **matches** the set of lines that would be expected to be visible from a given pose. A **match value** for a set of lines can be obtained by adding together the set of bins in Hough space that correspond to the lines we are looking for. So testing for a set of _N_ lines is _O(N)_ computationally, which is fast because _N_ is usually less than 20.
+In this paper, rather than attempting to establish the **correspondence** between world lines and peaks in Hough space, author uses the Hough transform as a means to *quickly* establish a measure of how well the image **matches** the set of lines that would be expected to be visible from a given pose. A **match value** for a set of lines can be obtained by adding together the set of bins in Hough space that correspond to the lines we are looking for. So testing for a set of *N* lines is *O(N)* computationally, which is fast because *N* is usually less than 20.
 
-They use this _matching_ in an **exhaustive** search process to establish the match value for each pose that we consider. The **speed** of this method must be evaluated.
+They use this *matching* in an **exhaustive** search process to establish the match value for each pose that we consider. The **speed** of this method must be evaluated.
 
-For each _pre-determined camera position_, the algorithm searches the full range of plausible values of pan, tilt, and field-of-view, calculating the match value.
+For each *pre-determined camera position*, the algorithm searches the full range of plausible values of pan, tilt, and field-of-view, calculating the match value.
 
-In this paper (as the only one I've seen) the **curved lines** are represented as a series of line segments. This needs to be tested. Authors used one segment for every 20 degree. So the central circle in the soccer field is represented by 18 line segments. This eliminated the need to handle curves and lines separately, and thus simplifies the implementation.
+In this paper (as the only one I've seen) the **curved lines** are represented as a series of line segments. This needs to be tested. Author used one segment for every 20 degree. So the central circle in the soccer field is represented by 18 line segments. This eliminated the need to handle curves and lines separately, and thus simplifies the implementation.
 
 ### Line detection filter
 
@@ -27,15 +27,15 @@ In this paper (as the only one I've seen) the **curved lines** are represented a
 
 A variant of Hough transform is used that maintains some of the spatial information. Because the peak in the Hough transform from a short line segment (or a curve line segment) may be no higher than a peak caused by samples from several other line segments and from the limbs of a player, that coincidentally happen to be co-linear. Thus short line segments may be incorrectly inferred. The catch is that information that caused the genuine peak came from samples in a specific localized area, whilst the other came from a spatially diverse area.
 
-**How to retain spatial information in Hough transform?** Simply divide the image into S 1D segments. This maintains a common set of bins for the whole image, with each bin being sub-divided into S sections (?). For simplicity we divide the line by reference to either the horizontal portion of the image in which it lies (for lines that are closer to horizontal than vertical (?)), or the vertical portion (for lines that are closer to vertical).
+**How to retain spatial information in Hough transform?** Simply divide the image into S 1D segments. This maintains a common set of bins for the whole image, with each bin being sub-divided into S sections. For simplicity we divide the line by reference to either the horizontal portion of the image in which it lies (for lines that are closer to horizontal than vertical (?)), or the vertical portion (for lines that are closer to vertical).
 
-Thus to determine the sub-bin that a given pixel contributes to, it is only necessary to check its _x_ or _y_ coordinate, depending on the angle that the bin in the transform corresponds to.
+Thus to determine the sub-bin that a given pixel contributes to, it is only necessary to check its *x* or *y* coordinate, depending on the angle that the bin in the transform corresponds to.
 
-The resulting Hough space has 3 dimensions: distance and angle (as in a conventional Hough transform) and _distance from picture edge_, measured from either bottom or left edge of the picture frame depending on the slope of the line. This third axis (distance from picture edge) has length S.
+The resulting Hough space has 3 dimensions: distance and angle (as in a conventional Hough transform) and *distance from picture edge*, measured from either bottom or left edge of the picture frame depending on the slope of the line. This third axis (distance from picture edge) has length S.
 
-The catch is that both vertical and horizontal are divided into S sub-regions, so upper and left sections have a _common_ sub-Hough. Also not all lines use all sub-Houghs. But since memory is not an issue for now, and this method is really quick and simple, we will stick with this. If we add together all the sub-Houghs we get a conventional Hough transform.
+The catch is that both vertical and horizontal are divided into S sub-regions, so upper and left sections have a *common* sub-Hough. Also not all lines use all sub-Houghs. But since memory is not an issue for now, and this method is really quick and simple, we will stick with this. If we add together all the sub-Houghs we get a conventional Hough transform.
 
-**How to use the line detection filter?** The line detection filter assumes that we know the _orientation_ and _width_ of the lines, which we do not! With a range of assumed line widths, and using both the vertical and horizontal direction, we apply the filter to the image several times. We add the outputs together, then for each pixel which is more than a **threshold**, we add a value to the appropriate sub-bins **proportional** to the summed output of the line detection filter.
+**How to use the line detection filter?** The line detection filter assumes that we know the *orientation* and *width* of the lines, which we do not! With a range of assumed line widths, and using both the vertical and horizontal direction, we apply the filter to the image several times. We add the outputs together, then for each pixel which is more than a **threshold**, we add a value to the appropriate sub-bins **proportional** to the summed output of the line detection filter.
 
 Implementation
 --------------
@@ -46,7 +46,17 @@ Use the line detection output with several parameters and calculate the spatiali
 
 ### Step 2
 
-Search.
+Search the possible values of pan, tilt and zoom for a *specific camera position*. For each plausible value of pan, tilt and zoom, project the lines of the pitch model into the image. The **step size** for search is set to be equivalent to a fixed number of pixels in the image (?).
+
+For each **candidate pose** that *at least 3 lines are visible*, we compute the list of sub-bins that correspond to visible lines, add their contents together to get the match score of this pose. We **ignore poses** close to other poses with a higher match value, as they are not useful local maxima.
+
+**How to speed up the search?** As the set of sub-bins to be used for each camera pose only depends on camera position and pitch model, this list can be pre-computed for a specific camera position and thus significantly increase the search speed.
+
+The set of 5 to 10 best poses are used in step 3.
+
+### Step 3
+
+The third step is tracking which we are not concerned with right now.
 
 Tests
 =====
@@ -59,10 +69,11 @@ Tests
 
 Questions
 =========
-**Q:** How do we know if a line in the image is closer to horizontal or vertical?  - **A:** When calculating the Hough transform, each pixel in the frame space, corresponds to a set of bins in the Hough space. According to the angle that the bin corresponds to we can decide whether the line is more horizontal or more vertical, then by checking its _x_ or _y_ coordinates we decide which sub-Hough space we should use.
+**Q:** How do we know if a line in the image is closer to horizontal or vertical?  - **A:** When calculating the Hough transform, each pixel in the frame space, corresponds to a set of bins in the Hough space. According to the angle that the bin corresponds to we can decide whether the line is more horizontal or more vertical, then by checking its *x* or *y* coordinates we decide which sub-Hough space we should use.
 
 **Q:** I have no idea why applying the line detection filter several times and then adding their outputs together makes sense! Why first design a powerful line detection filter with orientation and line width parameters, and then add together output of the filter for different values of its parameters blindly?
 
+**Q:** How is the step size determined in the search step? It is set to be equivalent to a fixed number of pixels in the image, but the fixed number of pixels seems to change with equal increase in zoom value. In the paper the author says for zoom consider the motion caused at the edge of the image.
 
 Tasks
 =====
