@@ -21,7 +21,11 @@ In this paper (as the only one I've seen) the **curved lines** are represented a
 
 ### Line detection filter
 
-…
+Author designed the line detection filter assuming that we know the orientation (vertical vs horizontal) and width of the line that we want to filter out. But in reality we do *not* know the orientation and width of the line, thus we apply this filter with several width size and orientation combinations and add their output together.
+
+The filter is designed so that it will ignore regions which are significantly wider that a pitch line. The filter is applied either horizontally or vertically. The width thus needs to be adjusted to reflect the its *width in the horizontal or vertical direction* as appropriate. The **local maximum** of the filter output is taken to identify *a pixel at the center of the line*.
+
+The filter is applied to the blue component of the image.
 
 ### The variant of Hough transform - Spatialised Hough transform
 
@@ -66,6 +70,7 @@ Tests
 * Evaluate the effect of including curved lines as line segments versus completely eliminating them.
 * Evaluate the effect of the spatial Hough transform versus regular Hough transform.
 * The line detection filter used is complicated and time consuming. What is the effect of changing this filter to a simpler filter.
+* Does blue component of the image distinguish well between the green grass and the white line?
 
 Questions
 =========
@@ -81,12 +86,26 @@ Tasks
 * Implement the spatialised Hough transform described in the paper.
 * Implement the search algorithm for initialization.
 
+Code
+====
+The code is written in Python 2.7.
+
+Dependencies:
+
+* OpenCV 2 with python bindings.
+* numpy >= 1.8
+
+Hight leven details:
+
+* I've used [CvMat](http://opencv.willowgarage.com/documentation/python/core_basic_structures.html#cvmat) for images. So utility codes work with that data structure.
+
 Notice
 ======
-This work is done by [Yasser Souri](http://ce.sharif.ir/~souri) in [Image Processing Laboratory (IPL)](http://ipl.ce.sharif.edu/), [Computer Engineering Department](http://ce.sharif.ir/) in [Sharif University of Technology](http://sharif.ir/), under supervision of [Prof. Shohreh Kasaei](http://sharif.edu/~skasaei/).
+This work is done by [Yasser Souri](http://ce.sharif.ir/~souri) in collaboration with Mehran Fotouhi in [Image Processing Laboratory (IPL)](http://ipl.ce.sharif.edu/), [Computer Engineering Department](http://ce.sharif.ir/) in [Sharif University of Technology](http://sharif.ir/), under supervision of [Prof. Shohreh Kasaei](http://sharif.edu/~skasaei/).
 
 Some parts of the "Description" section is copied from the G.Thomas[2007] paper.
 
+Images in `images` directory are copy righted. Academic or non-academin use requires permission from Image Processing Labratory in Sharif University.
 
 Reference
 =========
