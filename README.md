@@ -105,7 +105,7 @@ This work is done by [Yasser Souri](http://ce.sharif.ir/~souri) in collaboration
 
 Some parts of the "Description" section is copied from the G.Thomas[2007] paper.
 
-Images in `images` directory are copy righted. Academic or non-academin use requires permission from Image Processing Labratory in Sharif University.
+Images in `images` directory are copy righted. Academic or non-academin use requires permission from Image Processing Labratory in Sharif University. If you cite our work, it is basically OK for academic use, but asking for permission is needed.
 
 Reference
 =========
