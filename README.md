@@ -25,7 +25,9 @@ Author designed the line detection filter assuming that we know the orientation 
 
 The filter is designed so that it will ignore regions which are significantly wider that a pitch line. The filter is applied either horizontally or vertically. The width thus needs to be adjusted to reflect the its *width in the horizontal or vertical direction* as appropriate. The **local maximum** of the filter output is taken to identify *a pixel at the center of the line*.
 
-The filter is applied to the blue component of the image.
+The filter is applied to the **blue** component of the image.
+
+The adjacent pixels must also have a colour in the range expected for grass. For this the author suggests using a hue-based chroma-keyer. The keyer needs to merely indicate areas unlikely to be grass, so that immediately adjacent areas are not considered as possible lines.p
 
 ### The variant of Hough transform - Spatialised Hough transform
 
@@ -70,7 +72,7 @@ Tests
 * Evaluate the effect of including curved lines as line segments versus completely eliminating them.
 * Evaluate the effect of the spatial Hough transform versus regular Hough transform.
 * The line detection filter used is complicated and time consuming. What is the effect of changing this filter to a simpler filter.
-* Does blue component of the image distinguish well between the green grass and the white line?
+* Does blue component of the image distinguish well between the green grass and the white line? - Yes it does. Certainly you don't want the green component!
 
 Questions
 =========
@@ -105,7 +107,7 @@ This work is done by [Yasser Souri](http://ce.sharif.ir/~souri) in collaboration
 
 Some parts of the "Description" section is copied from the G.Thomas[2007] paper.
 
-Images in `images` directory are copy righted. Academic or non-academin use requires permission from Image Processing Labratory in Sharif University. If you cite our work, it is basically OK for academic use, but asking for permission is needed.
+Images in `images` directory are copy righted. Academic or non-academic use requires permission from Image Processing Laboratory in Sharif University. If you cite our work, it is basically OK for academic use, but asking for permission is needed.
 
 Reference
 =========
