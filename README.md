@@ -27,7 +27,7 @@ The filter is designed so that it will ignore regions which are significantly wi
 
 The filter is applied to the **blue** component of the image.
 
-The adjacent pixels must also have a colour in the range expected for grass. For this the author suggests using a hue-based chroma-keyer. The keyer needs to merely indicate areas unlikely to be grass, so that immediately adjacent areas are not considered as possible lines.p
+The adjacent pixels must also have a colour in the range expected for grass. For this the author suggests using a hue-based chroma-keyer. The keyer needs to merely indicate areas unlikely to be grass, so that immediately adjacent areas are not considered as possible lines.
 
 ### The variant of Hough transform - Spatialised Hough transform
 

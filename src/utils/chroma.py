@@ -1,5 +1,34 @@
 import cv
 import math
+import numpy
+
+def degree_to_2pi(theta):
+	while theta >= 360:
+		theta -= 360
+	return theta
+
+def hue_keyer(img, theta=120, acceptance_angle=90):
+	theta = degree_to_2pi(theta)
+	LB = degree_to_2pi(theta - acceptance_angle)
+	UB = degree_to_2pi(theta + acceptance_angle)
+
+	print LB, UB
+
+	result = cv.CreateMat(img.rows, img.cols, cv.CV_8UC1)
+
+	img_HSV = cv.CreateMat(img.rows, img.cols, cv.CV_8UC3)
+	cv.CvtColor(img, img_HSV, cv.CV_RGB2HSV)
+
+	img_HSV_array = numpy.asarray(img_HSV)
+	result_array = numpy.asarray(result)
+
+	# print (img_HSV_array[:,:,0] > LB) & (img_HSV_array[:,:,0] < UB)
+	# exit()
+	result_array[(img_HSV_array[:,:,0] > LB) & (img_HSV_array[:,:,0] < UB)] = 255
+
+	return cv.fromarray(result_array)
+
+
 def chroma_keyer(img, theta=170, acceptance_angle=150):
 	"""
 	Computes the chroma keyer output of an image, given the hue angle and acceptance angle.
