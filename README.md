@@ -100,7 +100,8 @@ Dependencies:
 
 Hight leven details:
 
-* I've used [CvMat](http://opencv.willowgarage.com/documentation/python/core_basic_structures.html#cvmat) for images. So utility codes work with that data structure.
+* I've used [CvMat](http://opencv.willowgarage.com/documentation/python/core_basic_structures.html#cvmat) for images. So utility codes work with that data structure. Although some utility functions work with numpy arrays.
+* I've tried my best to prevent using `for` loops in code.
 
 ### To Do
 
