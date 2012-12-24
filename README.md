@@ -95,11 +95,17 @@ The code is written in Python 2.7.
 Dependencies:
 
 * OpenCV 2 with python bindings.
-* numpy >= 1.8
+* numpy >= 1.6
 
 Hight leven details:
 
 * I've used [CvMat](http://opencv.willowgarage.com/documentation/python/core_basic_structures.html#cvmat) for images. So utility codes work with that data structure.
+
+### To Do
+
+* cleanup code for hue based chroma keyer.
+* write comment for `line_filter`
+
 
 Notice
 ======

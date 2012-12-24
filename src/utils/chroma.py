@@ -8,11 +8,9 @@ def degree_to_2pi(theta):
 	return theta
 
 def hue_keyer(img, theta=120, acceptance_angle=90):
-	theta = degree_to_2pi(theta)
-	LB = degree_to_2pi(theta - acceptance_angle)
-	UB = degree_to_2pi(theta + acceptance_angle)
-
-	print LB, UB
+	# theta = degree_to_2pi(theta)
+	LB = (theta - acceptance_angle)
+	UB = (theta + acceptance_angle)
 
 	result = cv.CreateMat(img.rows, img.cols, cv.CV_8UC1)
 
@@ -26,7 +24,7 @@ def hue_keyer(img, theta=120, acceptance_angle=90):
 	# exit()
 	result_array[(img_HSV_array[:,:,0] > LB) & (img_HSV_array[:,:,0] < UB)] = 255
 
-	return cv.fromarray(result_array)
+	return result_array
 
 
 def chroma_keyer(img, theta=170, acceptance_angle=150):
