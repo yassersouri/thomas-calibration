@@ -72,7 +72,8 @@ Tests
 * Evaluate the effect of including curved lines as line segments versus completely eliminating them.
 * Evaluate the effect of the spatial Hough transform versus regular Hough transform.
 * The line detection filter used is complicated and time consuming. What is the effect of changing this filter to a simpler filter.
-* Does blue component of the image distinguish well between the green grass and the white line? - Yes it does. Certainly you don't want the green component!
+* Does blue component of the image distinguish well between the green grass and the white line? - Yes it does. Certainly you don't want the green component! Below you see the blue component.
+![Blue Component](https://raw.github.com/yassersouri/thomas-calibration/master/docs/f581_4_1_blue.jpg)
 
 Questions
 =========
@@ -84,7 +85,7 @@ Questions
 
 Tasks
 =====
-* Implement line detection filter.
+* ~~Implement line detection filter.~~
 * Implement the spatialised Hough transform described in the paper.
 * Implement the search algorithm for initialization.
 
@@ -104,7 +105,8 @@ Hight leven details:
 ### To Do
 
 * cleanup code for hue based chroma keyer.
-* write comment for `line_filter`
+* write comment for `line_filter`.
+* test the overflow error on the chroma keyer.
 
 
 Notice
