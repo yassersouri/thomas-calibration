@@ -27,7 +27,7 @@ The filter is designed so that it will ignore regions which are significantly wi
 
 The filter is applied to the **blue** component of the image.
 
-The adjacent pixels must also have a colour in the range expected for grass. For this the author suggests using a hue-based chroma-keyer. The keyer needs to merely indicate areas unlikely to be grass, so that immediately adjacent areas are not considered as possible lines.
+The adjacent pixels must also have a color in the range expected for grass. For this the author suggests using a hue-based chroma-keyer. The keyer needs to merely indicate areas unlikely to be grass, so that immediately adjacent areas are not considered as possible lines.
 
 ### The variant of Hough transform - Spatialised Hough transform
 
@@ -72,8 +72,25 @@ Tests
 * Evaluate the effect of including curved lines as line segments versus completely eliminating them.
 * Evaluate the effect of the spatial Hough transform versus regular Hough transform.
 * The line detection filter used is complicated and time consuming. What is the effect of changing this filter to a simpler filter.
-* Does blue component of the image distinguish well between the green grass and the white line? - Yes it does. Certainly you don't want the green component! Below you see the blue component.
+
+### Blue component
+
+Does blue component of the image distinguish well between the green grass and the white line? - Yes it does. Certainly you don't want the green component! Below you see the blue component.
 ![Blue Component](https://raw.github.com/yassersouri/thomas-calibration/master/docs/f581_4_1_blue.jpg)
+
+### Effect of chroma keyer on line detection output
+
+Below you can see the output of using the chroma keyer on the output of the line detection filter.
+
+**With Chroma Keyer**:
+
+![]()
+
+**Without Chroma Keyer**:
+
+![]()
+
+As you can see, when not using the chroma keyer there are lots of noise in the output of the line detection filter, spatially in area of crowd in the stadium.
 
 Questions
 =========

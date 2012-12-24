@@ -71,7 +71,6 @@ def filter_for(blue_image, keyer, width=3, orientation='h'):
 				temp = min(temp1, temp2)
 				if temp < 20:
 					temp = 0
-				# temp = min(blue_image[i,j] - blue_image[i-i_shift, j-j_shift], blue_image[i,j] - blue_image[i+i_shift, j+j_shift])
 				result[i,j] = temp
 
 	return result
