@@ -82,15 +82,15 @@ Does blue component of the image distinguish well between the green grass and th
 
 Below you can see the output of using the chroma keyer on the output of the line detection filter.
 
-**With Chroma Keyer**:
-
-![]()
-
 **Without Chroma Keyer**:
 
-![]()
+![Line detection output without chroma keyer](https://raw.github.com/yassersouri/thomas-calibration/master/docs/filter_output_without_keyer.jpg)
 
-As you can see, when not using the chroma keyer there are lots of noise in the output of the line detection filter, spatially in area of crowd in the stadium.
+**With Chroma Keyer**:
+
+![Line detection output with chroma keyer](https://raw.github.com/yassersouri/thomas-calibration/master/docs/filter_output_with_keyer.jpg)
+
+As you can see, when not using the chroma keyer there are lots of noise in the output of the line detection filter, spatially in area of crowd in the stadium and around the soccore pitch.
 
 Questions
 =========
