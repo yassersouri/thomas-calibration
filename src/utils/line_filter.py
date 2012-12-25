@@ -65,6 +65,11 @@ def filter(blue_image, keyer, width=3, orientation='h'):
 	return result
 
 def filter_for(blue_image, keyer, width=3, orientation='h'):
+	"""
+	This function is the much slower version of filter, implemented with for loops.
+	At some point I could not find what was wrong with my vectorized implementation so I tried writing it with for loops.
+	It actually helped alot. So I'll keep this in the code.
+	"""
 	result = numpy.zeros(blue_image.shape, dtype=numpy.uint8)
 
 	i_min , j_min = 0,0
