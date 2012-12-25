@@ -27,18 +27,24 @@ def filter(blue_image, keyer, width=3, orientation='h'):
 	else:
 		raise "orientation is not defined, must be 'h' or 'v'"
 
-	result_a = result_a.astype(int)
-	result_c = result_c.astype(int)
-
 	keyer_filter = numpy.maximum(keyer_a, keyer_c)
-	result_b_a = result - result_a
-	result_b_c = result - result_c
 
-	result_b_c = result_b_c.astype(numpy.uint8)
-	result_b_a = result_b_a.astype(numpy.uint8)
+	# calculate b-a
+	temp_b_a = result - result_a
+	filter_b_a = numpy.greater(result, result_a) * numpy.uint8(255)
+	result_b_a = numpy.minimum(temp_b_a, filter_b_a)
 
+	# calculate b-c
+	temp_b_c = result - result_c
+	filter_b_c = numpy.greater(result, result_c) * numpy.uint8(255)
+	result_b_c = numpy.minimum(temp_b_c, filter_b_c)
+
+	# calculater minimum difference
 	result = numpy.minimum(result_b_a, result_b_c)
+
+	# filter with keyer
 	result = numpy.minimum(result, keyer_filter)
+
 	return result
 
 def filter_for(blue_image, keyer, width=3, orientation='h'):
