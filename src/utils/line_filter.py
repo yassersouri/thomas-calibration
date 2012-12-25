@@ -1,5 +1,5 @@
 import numpy
-import cv
+
 def filter(blue_image, keyer, width=3, orientation='h'):
 	"""
 	This function implemets the line detection filter.
