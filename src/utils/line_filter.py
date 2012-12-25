@@ -45,6 +45,11 @@ def filter(blue_image, keyer, width=3, orientation='h'):
 	# filter with keyer
 	result = numpy.minimum(result, keyer_filter)
 
+	# threshold
+	filter_output_threshold = 20
+	threshold_filter = numpy.greater(result, numpy.uint8(filter_output_threshold)) * numpy.uint8(255)
+	result = numpy.minimum(result, threshold_filter)
+
 	return result
 
 def filter_for(blue_image, keyer, width=3, orientation='h'):
