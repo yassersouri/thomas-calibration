@@ -123,7 +123,7 @@ Hight leven details:
 ### To Do
 
 * cleanup code for hue based chroma keyer.
-* write comment for `line_filter`.
+* ~~write comment for `line_filter`.~~
 * test the overflow error on the chroma keyer.
 
 

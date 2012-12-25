@@ -1,6 +1,18 @@
 import numpy
 import cv
 def filter(blue_image, keyer, width=3, orientation='h'):
+	"""
+	This function implemets the line detection filter.
+
+	parameters:
+		-blue_image: numpy array, dtype: numpy.uint8. Is the single channel image as numpy array. In the paper this is the blue componenet of the RGB input image.
+			can make this from the single channel CvMat or IplImage: `numpy.fromarray(img)`
+		-keyer: numpy array, dtype: numpy.uint8, shape: same as blue_image. This is the chroma keyer output.
+		-width: int. is the width of the filter.
+		-orientation: 'h' or 'v' for horizontal and vertical respectivly. indicates the direction of the filter.
+	returns:
+		-numpy array, dtype: numpy.uint8, shape: same as blue_image.
+	"""
 	result = blue_image
 
 	if orientation == 'h':
