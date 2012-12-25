@@ -58,7 +58,7 @@ For each **candidate pose** that *at least 3 lines are visible*, we compute the 
 
 **How to speed up the search?** As the set of sub-bins to be used for each camera pose only depends on camera position and pitch model, this list can be pre-computed for a specific camera position and thus significantly increase the search speed.
 
-The set of 5 to 10 best poses are used in step 3.
+The set of 5 to 10 best poses are used in step 3. Note that poses close to each other are ignored.
 
 ### Step 3
 
@@ -149,3 +149,5 @@ For inquiries regarding the implementation and licensing please contact Yasser S
     Sharif University of Technology
     yassersouri@gmail.com
     souri@ce.sharif.edu
+    
+Or you could simply use the [github issues](https://github.com/yassersouri/thomas-calibration/issues).
