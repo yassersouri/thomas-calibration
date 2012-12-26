@@ -1,6 +1,24 @@
 import numpy
 
-def filter(blue_image, keyer, width=3, orientation='h'):
+def line_detection_filter(blue_image, keyer):
+	"""
+	This function applies the `filter` function with a range of width and on both orientation and returnes the summed output.
+	parameters:
+		-blue_image: numpy array, dtype: numpy.uint8. Is the single channel image as numpy array. In the paper this is the blue componenet of the RGB input image.
+			can make this from the single channel CvMat or IplImage: `numpy.fromarray(img)`
+		-keyer: numpy array, dtype: numpy.uint8, shape: same as blue_image. This is the chroma keyer output.
+	returns:
+		-numpy array, dtype: numpy.float32, shape: same as blue_image.
+	"""
+	result = numpy.zeros(blue_image.shape, dtype=numpy.float32)
+	for w in range(2,5):
+		h_output = filter_line(blue_image, keyer, width=w, orientation='h')
+		v_output = filter_line(blue_image, keyer, width=w, orientation='v')
+		result += (h_output + v_output)
+
+	return result
+
+def filter_line(blue_image, keyer, width=3, orientation='h'):
 	"""
 	This function implemets the line detection filter.
 
@@ -64,7 +82,7 @@ def filter(blue_image, keyer, width=3, orientation='h'):
 
 	return result
 
-def filter_for(blue_image, keyer, width=3, orientation='h'):
+def filter_line_for(blue_image, keyer, width=3, orientation='h'):
 	"""
 	This function is the much slower version of filter, implemented with for loops.
 	At some point I could not find what was wrong with my vectorized implementation so I tried writing it with for loops.
