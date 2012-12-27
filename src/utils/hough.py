@@ -24,11 +24,3 @@ def general_hough_line(line_image):
 					result[theta, r] += impact_value
 
 	return result
-def frange(x, y, jump):
-	"""
-	Range for floats!
-	<http://stackoverflow.com/a/7267280/428321>
-	"""
-	while x < y:
-		yield x
-		x += jump
