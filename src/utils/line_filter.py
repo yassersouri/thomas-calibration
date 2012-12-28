@@ -10,12 +10,19 @@ def line_detection_filter(blue_image, keyer):
 	returns:
 		-numpy array, dtype: numpy.float32, shape: same as blue_image.
 	"""
+	w_min = 2
+	w_max = 5
 	result = numpy.zeros(blue_image.shape, dtype=numpy.float32)
-	for w in range(2,5):
+	for w in range(w_min,w_max):
 		h_output = filter_line(blue_image, keyer, width=w, orientation='h')
 		v_output = filter_line(blue_image, keyer, width=w, orientation='v')
 		result += (h_output + v_output)
 
+	# remove false edges
+	result[0:w_max, :] = 0
+	result[:, 0:w_max] = 0
+	result[-1*w_max:, :] = 0
+	result[:, -1*w_max:] = 0
 	return result
 
 def filter_line(blue_image, keyer, width=3, orientation='h'):
