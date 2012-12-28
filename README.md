@@ -103,7 +103,7 @@ Questions
 Tasks
 =====
 * ~~Implement line detection filter.~~
-* Implement the spatialised Hough transform described in the paper.
+* ~~Implement the spatialised Hough transform described in the paper.~~
 * Implement the search algorithm for initialization.
 
 Code
@@ -117,7 +117,8 @@ Dependencies:
 
 Hight leven details:
 
-* I've used [CvMat](http://opencv.willowgarage.com/documentation/python/core_basic_structures.html#cvmat) for images. So utility codes work with that data structure. Although some utility functions work with numpy arrays.
+* I've used [CvMat](http://opencv.willowgarage.com/documentation/python/core_basic_structures.html#cvmat) for images.
+* I've used numpy arrays. (No numpy matrix is used)
 * I've tried my best to prevent using `for` loops in code.
 
 ### To Do
