@@ -2,13 +2,7 @@ import cv
 import math
 import numpy
 
-def degree_to_2pi(theta):
-	while theta >= 360:
-		theta -= 360
-	return theta
-
 def hue_keyer(img, theta=120, acceptance_angle=90):
-	# theta = degree_to_2pi(theta)
 	LB = (theta - acceptance_angle)
 	UB = (theta + acceptance_angle)
 
