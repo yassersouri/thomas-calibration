@@ -1,6 +1,9 @@
 # coding=utf8
 import numpy
 import math
+
+IMPACT_CONST = 1/10000.0
+
 def general_hough_line(line_image):
 	"""
 	This function calculates the corresponding hough image, which then can be used to extract lines or to evaluate the match value of a pose.
@@ -10,13 +13,14 @@ def general_hough_line(line_image):
 	returns:
 		-numpy array, dtype: numpy.float32, shape: (270,int(sqrt(line_image.shape[0]**2 + line_image.shape[1]**2)))
 	"""
+
 	r_max = int(math.sqrt(line_image.shape[0]**2 + line_image.shape[1]**2))
 	result = numpy.zeros((270, r_max), dtype=numpy.float32)
 
 	for x in range(line_image.shape[0]):
 		for y in range(line_image.shape[1]):
 			value = line_image[x,y]
-			impact_value = value/10000.0
+			impact_value = value * IMPACT_CONST
 			if value > 0:
 				for theta in range(0, 270):
 					# the real theta
@@ -54,7 +58,7 @@ def spatialised_hough_line(line_image, S=10):
 	for x in range(line_image.shape[0]):
 		for y in range(line_image.shape[1]):
 			value = line_image[x,y]
-			impact_value = value/10000.0
+			impact_value = value * IMPACT_CONST
 			if value > 0:
 				for theta in range(0, 270):
 					# the real theta
