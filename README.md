@@ -115,7 +115,7 @@ Dependencies:
 * OpenCV 2 with python bindings.
 * numpy >= 1.6
 
-Hight leven details:
+High level details:
 
 * I've used [CvMat](http://opencv.willowgarage.com/documentation/python/core_basic_structures.html#cvmat) for images.
 * I've used numpy arrays. (No numpy matrix is used)
@@ -149,6 +149,6 @@ For inquiries regarding the implementation and licensing please contact Yasser S
     Room 822, Computer Engineering Department
     Sharif University of Technology
     yassersouri@gmail.com
-    souri@ce.sharif.edu
+    ysouri@ce.sharif.edu
     
 Or you could simply use the [github issues](https://github.com/yassersouri/thomas-calibration/issues).
