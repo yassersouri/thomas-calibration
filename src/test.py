@@ -8,6 +8,7 @@ from utils import line_filter
 from utils import hough
 
 import lib.PCPM
+import lib.Azadi
 
 def main():
 	folder = '../images/'
@@ -23,6 +24,8 @@ def main():
         2.4474, -0.0416, -0.1467
         ,286.820329582749,-1528.34592002449,2392.43585096462
         , 0.000156, 1.0001042808)
+
+	print lib.Azadi.azadi.c0
 	exit()
 
 	img = cv.LoadImageM(folder + image + image_ext)
