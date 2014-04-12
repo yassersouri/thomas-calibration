@@ -20,15 +20,29 @@ def main():
 	image_ext = '.jpg'
 	# image_ext = '.png'
 
-	print lib.PCPM.projmatrix(6581.683679,1072.853995,969.786074,
-        2.4474, -0.0416, -0.1467
-        ,286.820329582749,-1528.34592002449,2392.43585096462
-        , 0.000156, 1.0001042808)
 
-	print lib.Azadi.azadi.c0
-	exit()
 
 	img = cv.LoadImageM(folder + image + image_ext)
+
+	P = lib.PCPM.projmatrix(F=10, Ox=img.width/2, Oy=img.height/2, Ax=15, Ay=-10, Az=0, X=-51.062, Y=55.201, Z=16.932, Skewness=0, Beta=1)
+	P = numpy.asarray(P)
+
+	print P
+
+
+	ps = numpy.asarray(lib.Azadi.azadi.p0ps)
+	ps_a = numpy.concatenate((ps, [1]))
+
+	def normalize_homogenous(v):
+		return v / v[2]
+
+
+	v = numpy.dot(P, ps_a)
+	vv = normalize_homogenous(v)
+	print vv
+
+	cv.Circle(img, (int(vv[1]), int(vv[0])), 2, (0, 0, 255), thickness=2)
+
 
 	a = datetime.now()
 
@@ -43,15 +57,15 @@ def main():
 	lines = line_filter.line_detection_filter(bi_array, numpy.asarray(keyer))
 
 	# g_hough = hough.general_hough_line(lines)
-	s_hough = hough.spatialised_hough_line(lines, S=10)
+	# s_hough = hough.spatialised_hough_line(lines, S=10)
 
 	b = datetime.now()
 	print (b-a)
 
 	cv.ShowImage('orig', img)
-	cv.ShowImage('blue', bi)
-	cv.ShowImage('keyer', cv.fromarray(keyer))
-	cv.ShowImage('lines', cv.fromarray(lines))
+	#cv.ShowImage('blue', bi)
+	#cv.ShowImage('keyer', cv.fromarray(keyer))
+	#cv.ShowImage('lines', cv.fromarray(lines))
 	# cv.ShowImage('hough', cv.fromarray(g_hough))
 	for i in range(10):
 		# cv.ShowImage('hough' + str(i), cv.fromarray(s_hough[i]))
